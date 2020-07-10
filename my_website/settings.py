@@ -25,7 +25,7 @@ SECRET_KEY = '0(cux@7^%+b@$l0-72gwkn17d1dm5wgpga9(ew8kkbf(#$7ixk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['karens-lair.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['karenslair.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
