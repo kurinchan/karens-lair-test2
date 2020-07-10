@@ -1,0 +1,30 @@
+{% extends 'main/main.html' %}
+
+{% block content %}
+
+<header class="masthead">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+              {% if request.user.is_superuser %}
+              <h1 class="text-uppercase text-white font-weight-bold">Welcome back, Karen!</h1>
+              {% else %}
+                <h1 class="text-uppercase text-white font-weight-bold">Hi, I'm Karen!</h1>
+              {%endif%}
+                <hr class="divider my-4" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-5">I aspire to be a successful software engineer. Also, I love cats.</p>
+                <br>
+                <p class="text-white-75 font-weight-light mb-5">Today's Weather</p>
+                <p>{{ current_weather.temperature }} °F </p>
+                <p>{{ current_weather.description }}</p>  
+                <img src="http://openweathermap.org/img/w/{{current_weather.icon}}.png" alt="Image">
+                <img src="{{ random_cat }}" style="float:left;width:42px;height:42px;">
+                <a href="{% url 'home' %}">Click here for a random cat photo</a>               
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
