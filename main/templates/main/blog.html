@@ -56,19 +56,39 @@
       </header>
       
       <section class="page-section2" id="#blogList">
-        {% for blog in blogs %}
-        <div class="container card-1">
-          {% if request.user.is_superuser %}
-          <div id="rightbox"><a class="btn-sm btn-primary" href="{% url 'update_blog' blog.id %}">Edit</a> <a href="{% url 'delete_blog' blog.id %}" class="btn-sm btn-danger">Delete</a></div>
-          {%endif%}
-          <h2>{{ blog.blog_title }}</h2>
-          <p>{{ blog.blog_content }}</p>           
-        <span class="badge date-color">{{ blog.blog_posted }}</span>
-        <hr class="divider2 my-1" /> 
+        
+<div class="row col-12">
+  <div class="col-sm-8">
+    {% for blog in blogs %}
+    <div class="card-1">
+      <div class="card-body">
+        {% if request.user.is_superuser %}
+        <div id="rightbox"><a class="btn-sm btn-primary" href="{% url 'update_blog' blog.id %}">Edit</a> <a href="{% url 'delete_blog' blog.id %}" class="btn-sm btn-danger">Delete</a></div>
+        {%endif%}
+        <h2>{{ blog.blog_title }}</h2>
+        <p class="card-text">{{ blog.blog_content }}</p>           
+      <span class="badge date-color">{{ blog.blog_posted }}</span>
+      <hr class="divider2 my-1" /> 
       </div>
     </div>
-  <br>
-{% endfor %}   
+    <br>
+    {%endfor%}
+  </div>
+    <div class="col-sm-4 tumblr">
+      <h2 class="text-center">Posts via Tumblr</h2>
+      {% for key, value in tumblr_post.items %}
+      <div class="card-1">
+        <div class="card-body">
+          <h2>{{ value.title }}</h2>
+          <p class="card-text">{{ value.body|striptags}}</p>           
+        <span class="badge date-color">{{value.date}}</span>
+        <hr class="divider2 my-1" /> 
+        </div>
+      </div>
+      <br>
+      {%endfor%}
+      </div>
+      
 </section>
 
 

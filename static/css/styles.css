@@ -499,6 +499,11 @@ mark,
   height: auto;
 }
 
+.tumblr {
+  background-color: #dee2e6;
+  padding:15px;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;

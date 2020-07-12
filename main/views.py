@@ -10,7 +10,7 @@ def home(request):
     response_cat = requests.get('https://api.thecatapi.com/v1/images/search').json()
     random_cat = response_cat[0]['url']
 
-    response_weather = requests.get('https://api.openweathermap.org/data/2.5/weather?&units=imperial&lat=13.632186&lon=123.224565&appid=00421149d089b15c750a0745fb619766').json()
+    response_weather = requests.get('https://api.openweathermap.org/data/2.5/weather?&units=metric&lat=13.632186&lon=123.224565&appid=00421149d089b15c750a0745fb619766').json()
     current_weather = {
         'temperature' : response_weather['main']['temp'],
         'description' : response_weather['weather'][0]['description'],
@@ -47,7 +47,41 @@ def portfolio(request):
     context = {}
     return render(request, 'main/portfolio.html')
 
+def tumblr_blog(request):
+
+    response_tumblr = requests.get('https://api.tumblr.com/v2/blog/brewedintrospection.tumblr.com/posts/text?api_key=3NLJkd0T0fEDCC4CbBA1vh2aGelxMa6XRkRO1wOZ09e7HfQ0GH').json()
+    
+    number_of_post = response_tumblr['response']['total_posts']
+
+    tumblr = {}
+
+    for i in range(0,number_of_post):
+        tumblr_post[i] = {
+            'title' : response_tumblr['response']['posts'][i]['title'],
+            'body' : response_tumblr['response']['posts'][i]['body'],
+            'date' : response_tumblr['response']['posts'][i]['date'],
+        }
+
+    context = {'tumblr_post' : tumblr_post}
+    return render(request, 'main/blog.html', context)
+      
+
 def blog(request):
+
+    response_tumblr = requests.get('https://api.tumblr.com/v2/blog/brewedintrospection.tumblr.com/posts/text?api_key=3NLJkd0T0fEDCC4CbBA1vh2aGelxMa6XRkRO1wOZ09e7HfQ0GH').json()
+    
+    number_of_post = response_tumblr['response']['total_posts']
+
+    tumblr_post = {}
+
+    for i in range(0,number_of_post):
+        tumblr_post[i] = {
+            'title' : response_tumblr['response']['posts'][i]['title'],
+            'body' : response_tumblr['response']['posts'][i]['body'],
+            'date' : response_tumblr['response']['posts'][i]['date'],
+        }
+
+    print(tumblr_post)
     blogs = Blog.objects.order_by('-blog_posted').all()
 
     if request.method == 'POST':                            #create/post a blog
@@ -60,7 +94,7 @@ def blog(request):
     else:
         form = BlogForm()
 
-    context = {'blogs': blogs, 'form': form}
+    context = {'blogs': blogs, 'form': form, 'tumblr_post' : tumblr_post}
 
     return render(request, 'main/blog.html', context)
 
